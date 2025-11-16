@@ -15,8 +15,10 @@ class CustomerController extends Controller
         if($request->birthday == 'after2000'){
             $query->whereYear('birthday', '>', 2000);
         }
+        $customers = $query->paginate(10);
+        $customers->appends(key: $request->all());
         return view('customer', [
-            'customers' => $query->paginate(10),
+            'customers' => $customers,
         ]);
     }
 }
