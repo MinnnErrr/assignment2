@@ -60,7 +60,7 @@
           <div class="col-md-4">
             <label class="form-label text-white">Gender</label>
             <select name="gender" class="form-select">
-              <option selectedvalue>All</option>
+              <option value="all" {{ request('gender') == 'all' ? 'selected' : '' }}>All</option>
               <option value="Male" {{ request('gender') == 'Male' ? 'selected' : '' }}>Male</option>
               <option value="Female" {{ request('gender') == 'Female' ? 'selected' : '' }}>Female</option>
             </select>
@@ -69,13 +69,14 @@
           <div class="col-md-4">
             <label class="form-label text-white">Birthday</label>
             <select name="birthday" class="form-select">
-              <option Selected>All</option>
+              <option value="all" {{ request('birthday') == 'all' ? 'selected' : '' }}>All</option>
               <option value="after2000" {{ request('birthday') == 'after2000' ? 'selected' : '' }}>Born After 2000</option>
+              <option value="before2000" {{ request('birthday') == 'before2000' ? 'selected' : '' }}>Born Before 2000</option>
             </select>
           </div>
 
           <div class="col-md-4 d-flex align-items-end">
-            <button type="button" class="btn btn-primary w-100">Apply Filter</button>
+            <button type="submit" class="btn btn-primary w-100">Apply Filter</button>
           </div>
         </div>
       </form>
@@ -116,14 +117,14 @@
         </table>
       </div>
 
-<div class="d-flex justify-content-between align-items-start mt-4">
-  <div style="color: #0d6dfd83">
-    Showing {{ $customers->firstItem() ?? 0 }} to {{ $customers->lastItem() ?? 0 }} of {{ $customers->total() }} results
-  </div>
-  <div>
-    {{ $customers->links('pagination::bootstrap-5') }}
-  </div>
-</div>
+      <div class="d-flex justify-content-between align-items-start mt-4">
+        <div style="color: #0d6dfd83">
+          Showing {{ $customers->firstItem() ?? 0 }} to {{ $customers->lastItem() ?? 0 }} of {{ $customers->total() }} results
+        </div>
+        <div>
+          {{ $customers->links('pagination::bootstrap-5') }}
+        </div>
+      </div>
 
 
 

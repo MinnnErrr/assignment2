@@ -7,16 +7,26 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
-      public function index(Request $request){
+    public function index(Request $request)
+    {
         $query = Customer::query();
-        if($request->gender){
+
+        // Gender filter
+        if ($request->gender && $request->gender !== 'all') {
             $query->where('gender', $request->gender);
         }
-        if($request->birthday == 'after2000'){
+
+        // Birthday filter
+        if ($request->birthday == 'after2000') {
             $query->whereYear('birthday', '>', 2000);
         }
+        if ($request->birthday == 'before2000') {
+            $query->whereYear('birthday', '<', 2000);
+        }
+
         $customers = $query->paginate(10);
-        $customers->appends(key: $request->all());
+        $customers->appends($request->all());
+
         return view('customer', [
             'customers' => $customers,
         ]);
